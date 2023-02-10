@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:hint="Enter your name"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/image"
+        android:src="@drawable/ic_launcher_background"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="change"
+        android:id="@+id/change"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mylist"/>
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+package com.example.activity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+    EditText name;
+    ImageView image;
+    Button change;
+    int flag = 1; // remember
+    ListView mylist;
+    String[] travel; // remember
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Toast.makeText(this,"activity created", Toast.LENGTH_SHORT).show();
+
+        name = findViewById(R.id.name);
+        image = findViewById(R.id.image);
+        change = findViewById(R.id.change);
+        mylist = findViewById(R.id.mylist);
+
+        //comes for list view
+
+
+        /* travel = getResources().getStringArray(R.array.travel_dest);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.textviewlayout, travel);
+        mylist.setAdapter(adapter);
+*/
+        mylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "you want to travel" + parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+            }
+        });
+       /* mylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this,"you want to travel: " + parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+*/
+        //1st implement this image view
+
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(flag  == 1)
+                {
+                    image.setImageResource(R.drawable.ic_launcher_foreground);
+                    flag = 2;
+                }
+                else
+                {
+                    image.setImageResource(R.drawable.ic_launcher_background);
+                    flag = 1;
+                }
+
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Toast.makeText(this,"activity started", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+
+}
